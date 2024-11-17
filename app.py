@@ -93,8 +93,8 @@ infos_carousel_groups = infos_carousel_df.groupby('圖文')
 
 app = Flask(__name__)
 
-configuration = Configuration(access_token=token)
-handler = WebhookHandler(channel_secret=secret)
+configuration = Configuration(access_token=os.getenv('LINE_CHANNEL_ACCESS_TOKEN'))
+line_handler = WebhookHandler(channel_secret=os.getenv('LINE_CHANNEL_SECRET'))
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -107,14 +107,14 @@ def callback():
 
     # handle webhook body
     try:
-        handler.handle(body, signature)
+        line_handler.handle(body, signature)
     except InvalidSignatureError:
         app.logger.info("Invalid signature. Please check your channel access token/channel secret.")
         abort(400)
 
     return 'OK'
 
-@handler.add(MessageEvent, message=TextMessageContent)
+@line_handler.add(MessageEvent, message=TextMessageContent)
 def handle_message(event):
     event_status = False
     event_token = event.reply_token
