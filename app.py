@@ -52,7 +52,8 @@ def Create_Template_Message(Group, Figure_list):
     temp_columns_list = []
     for key in temp_sub_group.groups:
         this_fig_name = [x for x in Figure_list if x.startswith(key[0])][0]
-        this_url = request.url_root + f'static/{this_fig_name}'
+        #this_url = request.url_root + f'static/{this_fig_name}'
+        this_url = url_for('static', filename=this_fig_name, _external=True)
         this_url = this_url.replace("http", "https")
         this_title_name = key[1]
         this_group = temp_sub_group.get_group(key)
