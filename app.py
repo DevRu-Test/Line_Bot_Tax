@@ -223,7 +223,7 @@ def handle_message(event):
 
         qa_list = [f'{x[0]}\n{x[1]}' for x in keywords_df[['題目', '答案']].values if event_message in x[0]]
         num_qa_list = len(qa_list)
-        if qa_list != 0:
+        if num_qa_list != 0:
             event_status = True
 
         if event_status:
