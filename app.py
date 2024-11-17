@@ -10,7 +10,7 @@ import os
 import random
 import pickle
 import pandas as pd
-from flask import Flask, request, abort, url_for
+from flask import Flask, request, abort#, url_for
 
 from linebot.v3 import (
     WebhookHandler
@@ -53,8 +53,8 @@ def Create_Template_Message(Group, Figure_list):
     for key in temp_sub_group.groups:
         this_fig_name = [x for x in Figure_list if x.startswith(key[0])][0]
         #this_url = request.url_root + f'static/{this_fig_name}'
-        this_url = url_for('static', filename=this_fig_name, _external=True)
-        this_url = this_url.replace("http", "https")
+        #this_url = url_for('static', filename=this_fig_name, _external=True)
+        #this_url = this_url.replace("http", "https")
         this_title_name = key[1]
         this_group = temp_sub_group.get_group(key)
         # print(this_url, this_title_name)
@@ -65,7 +65,8 @@ def Create_Template_Message(Group, Figure_list):
             this_text = sub_key[5]
             temp_actions_list.append(MessageAction(label=this_label, text=this_text))
         # print(temp_actions_list)
-    
+
+        this_url = sub_key[7]
         temp_columns_list.append(
             CarouselColumn(
                 thumbnail_image_url=this_url,
