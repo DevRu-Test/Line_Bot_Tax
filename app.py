@@ -227,12 +227,20 @@ def handle_message(event):
             event_status = True
 
         if event_status:
-            line_bot_api.reply_message(
-                ReplyMessageRequest(
-                    reply_token=event_token,
-                    messages =[TextMessage(text=qa_list[random.randint(0, num_qa_list-1)])]
+            if num_qa_list == 1:
+                line_bot_api.reply_message(
+                    ReplyMessageRequest(
+                        reply_token=event_token,
+                        messages =[TextMessage(text=qa_list[0])]
+                    )
                 )
-            )
+            else:
+                line_bot_api.reply_message(
+                    ReplyMessageRequest(
+                        reply_token=event_token,
+                        messages =[TextMessage(text=qa_list[random.randint(0, num_qa_list-1)])]
+                    )
+                )
         else:
             line_bot_api.reply_message(
                 ReplyMessageRequest(
