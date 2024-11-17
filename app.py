@@ -10,7 +10,7 @@ import os
 import random
 import pickle
 import pandas as pd
-from flask import Flask, request, abort
+from flask import Flask, request, abort, url_for
 
 from linebot.v3 import (
     WebhookHandler
